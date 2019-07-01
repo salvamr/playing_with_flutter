@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/data/api/api_movie_db.dart';
 import 'package:flutter_sample_app/data/models/popular_movies_model.dart';
+import 'package:flutter_sample_app/presentation/widgets/movie_card.dart';
 
 import 'loading_page.dart';
 
@@ -17,9 +18,10 @@ class TopRatedMoviesPage extends StatefulWidget {
 class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   ListView _printTopRatedMovies(AsyncSnapshot<Movies> snapshot) => ListView(
           children: snapshot.data.results.map((result) {
-        return ListTile(
-          subtitle: Text(result.voteCount.toString()),
-          title: Text(result.title),
+        return MovieCard(
+          title: result.title,
+          imageUrl: result.posterPath,
+          voteCount: result.voteCount.toString(),
         );
       }).toList());
 
