@@ -1,26 +1,27 @@
 import 'dart:convert';
 
-Movies moviesFromJson(String str) => Movies.fromJson(json.decode(str));
+MovieResult resultMoviesFromJson(String str) =>
+    MovieResult.fromJson(json.decode(str));
 
-String moviesToJson(Movies data) => json.encode(data.toJson());
+String moviesToJson(MovieResult data) => json.encode(data.toJson());
 
-class Movies {
+class MovieResult {
   int page;
-  List<Result> results;
+  List<Movie> results;
   int totalResults;
   int totalPages;
 
-  Movies({
+  MovieResult({
     this.page,
     this.results,
     this.totalResults,
     this.totalPages,
   });
 
-  factory Movies.fromJson(Map<String, dynamic> json) => new Movies(
+  factory MovieResult.fromJson(Map<String, dynamic> json) => new MovieResult(
         page: json["page"],
-        results: new List<Result>.from(
-          json["results"].map((x) => Result.fromJson(x)),
+        results: new List<Movie>.from(
+          json["results"].map((x) => Movie.fromJson(x)),
         ),
         totalResults: json["total_results"],
         totalPages: json["total_pages"],
@@ -34,7 +35,7 @@ class Movies {
       };
 }
 
-class Result {
+class Movie {
   String posterPath;
   bool adult;
   String overview;
@@ -50,7 +51,7 @@ class Result {
   bool video;
   double voteAverage;
 
-  Result({
+  Movie({
     this.posterPath,
     this.adult,
     this.overview,
@@ -67,7 +68,7 @@ class Result {
     this.voteAverage,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => new Result(
+  factory Movie.fromJson(Map<String, dynamic> json) => new Movie(
         posterPath: json["poster_path"],
         adult: json["adult"],
         overview: json["overview"],
