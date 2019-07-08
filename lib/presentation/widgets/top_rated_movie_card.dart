@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sample_app/data/api/api_constants.dart';
 import 'package:flutter_sample_app/data/models/movies_model.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class TopRatedMovieCard extends StatelessWidget {
-  TopRatedMovieCard({this.movie, this.position}) : super();
+  TopRatedMovieCard({this.movie, this.position, this.onMoviePressed}) : super();
 
   final Movie movie;
   final int position;
+  final Function onMoviePressed;
 
   @override
   Widget build(BuildContext context) => Card(
         child: ListTile(
-          title: Text(this.movie.title),
+          title: Text(
+            movie.title,
+          ),
           subtitle: SmoothStarRating(
             allowHalfRating: true,
             starCount: 5,
-            rating: (this.movie.popularity / 10),
-            size: 22.0,
+            rating: movie.popularity / 10,
+            size: 15.0,
           ),
           leading: Image.network(
-            "http://image.tmdb.org/t/p/w185/${this.movie.posterPath}",
+            "$BASE_IMAGE_URL/${movie.posterPath}",
           ),
           trailing: Text("#$position"),
+          onTap: () {
+            onMoviePressed(movie);
+          },
         ),
       );
 }

@@ -16,8 +16,8 @@ class PopularMoviesPage extends StatefulWidget {
 }
 
 class _PopularMoviesState extends State<PopularMoviesPage> {
-  ListView _printPopularMovies(AsyncSnapshot<MovieResult> snapshot) => ListView(
-          children: snapshot.data.results.map((result) {
+  ListView _printPopularMovies(MovieResult movies) => ListView(
+          children: movies.results.map((result) {
         return PopularMovieCard(
           movie: result,
         );
@@ -32,9 +32,7 @@ class _PopularMoviesState extends State<PopularMoviesPage> {
           future: getPopularMovies(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return _printPopularMovies(snapshot);
-            } else if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
+              return _printPopularMovies(snapshot.data);
             } else {
               return LoadingPage();
             }

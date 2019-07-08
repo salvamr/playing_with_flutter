@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_sample_app/core/helpers.dart';
+
 MovieResult resultMoviesFromJson(String str) =>
     MovieResult.fromJson(json.decode(str));
 
@@ -39,7 +41,7 @@ class Movie {
   String posterPath;
   bool adult;
   String overview;
-  DateTime releaseDate;
+  String releaseDate;
   List<int> genreIds;
   int id;
   String originalTitle;
@@ -72,7 +74,7 @@ class Movie {
         posterPath: json["poster_path"],
         adult: json["adult"],
         overview: json["overview"],
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate: formatDate(DateTime.parse(json["release_date"])),
         genreIds: new List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
         originalTitle: json["original_title"],
@@ -89,8 +91,7 @@ class Movie {
         "poster_path": posterPath,
         "adult": adult,
         "overview": overview,
-        "release_date":
-            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date": releaseDate,
         "genre_ids": new List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
         "original_title": originalTitle,
